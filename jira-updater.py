@@ -1,13 +1,17 @@
+import requests
+from requests.auth import HTTPBasicAuth
+import json
+import os
+
 # Get the value of an environment variable
 issue_id = os.environ.get('ISSUE')
 username = os.environ.get('JIRA_USERNAME')
 token = os.environ.get('JIRA_API_TOKEN')
-jira_url = os.environ.get('JIRA_BASE_URL')
 words = issue_id.split()
 
 for word in words:
     if word.startswith("#"):
-        url = jira_url+"/rest/api/3/issue/"+word[1:]+"/comment"
+        url = "https://kaleyra.atlassian.net/rest/api/3/issue/"+word[1:]+"/comment"
         auth = HTTPBasicAuth(username, token)
 
         headers = {
