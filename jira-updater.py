@@ -61,10 +61,19 @@ target_commit_mssg=target_output_string.split("\n")
 
 res = [item for item in pr_commit_mssg if item not in target_commit_mssg]
 res.append(issue_id)
-print(res)
-    
+
+# Convert the list to a set to remove duplicates
+issue_set = set(res)
+
+# Convert the set back to a list to preserve order
+issue_list = list(issue_set)
+print(issue_list)
+
+# Convert the list to a string with comma as separator
+issue_string = ', '.join(issue_list)
+
 jira_ticket_pattern = r"[A-Z0-9]+-\d+"
-matches = re.findall(jira_ticket_pattern, res)
+matches = re.findall(jira_ticket_pattern, issue_string)
 
 print(matches)
 
