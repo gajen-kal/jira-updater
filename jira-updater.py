@@ -51,11 +51,6 @@ pr_output_string = pr_output.decode("utf-8")
 
 pr_commit_mssg=pr_output_string.split("\n")
 
-print("type of pr_commit_mssg" ,type(pr_commit_mssg))
-
-for message in pr_output_string.split("\n"):
-    print("pr mes "+message)
-    
 # Run the git log command and capture its output
 target_output = subprocess.check_output(["git", "log", "--pretty=format:%s", f"origin/{target_branch}"])
 
@@ -64,10 +59,8 @@ target_output_string = target_output.decode("utf-8")
 
 target_commit_mssg=target_output_string.split("\n")
 
-print("type of target_commit_mssg" ,type(target_commit_mssg))
-
-for message in target_output_string.split("\n"):
-    print("target mes "+message)
+res = list(set(pr_commit_mssg - target_commit_mssg))
+print(res)
     
 jira_ticket_pattern = r"[A-Z0-9]+-\d+"
 matches = re.findall(jira_ticket_pattern, issue_id)
