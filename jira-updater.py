@@ -62,22 +62,22 @@ target_commit_mssg=target_output_string.split("\n")
 res = [item for item in pr_commit_mssg if item not in target_commit_mssg]
 res.append(issue_id)
 
-# Convert the list to a set to remove duplicates
-issue_set = set(res)
-
-# Convert the set back to a list to preserve order
-issue_list = list(issue_set)
-print(issue_list)
-
 # Convert the list to a string with comma as separator
-issue_string = ', '.join(issue_list)
+issue_string = ', '.join(res)
 
+# Regular expression for jira ticket
 jira_ticket_pattern = r"[A-Z0-9]+-\d+"
+
+# Find the ticket ids
 matches = re.findall(jira_ticket_pattern, issue_string)
 
+# Convert the list to a set to remove duplicates
+issue_list = list(set(matches))
+
+print(issue_list)
 print(matches)
 
-for word in matches:
+for word in issue_list:
     url = jira_url+"/rest/api/3/issue/"+word+"/comment"
     auth = HTTPBasicAuth(username, token)
 
