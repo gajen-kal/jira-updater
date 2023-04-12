@@ -3,6 +3,7 @@ from requests.auth import HTTPBasicAuth
 import json
 import os
 import re
+import subprocess
 
 # Get the value of an environment variable
 issue_id = os.environ.get('ISSUE')
@@ -10,6 +11,17 @@ username = os.environ.get('JIRA_USERNAME')
 token = os.environ.get('JIRA_API_TOKEN')
 jira_url = os.environ.get('JIRA_BASE_URL')
 pr_url = os.environ.get('PULL_REQUEST_URL')
+pr_branch = os.environ.get('PR_BRANCH')
+
+# Define the Git command to execute
+git_command = ['git', 'log', '--pretty=format:%s', f'origin/{pr_branch}']
+
+# Execute the Git command and capture the output
+output = subprocess.check_output(git_command).decode('utf-8')
+
+# Display the output
+print(output)
+print("The variable, output is of type:", type(output))
 
 jira_ticket_pattern = r"[A-Z0-9]+-\d+"
 matches = re.findall(jira_ticket_pattern, issue_id)
