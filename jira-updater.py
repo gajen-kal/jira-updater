@@ -11,7 +11,7 @@ token = os.environ.get('JIRA_API_TOKEN')
 jira_url = os.environ.get('JIRA_BASE_URL')
 pr_url = os.environ.get('PULL_REQUEST_URL')
 
-jira_ticket_pattern = r"[A-Z]+\-\d+"
+jira_ticket_pattern = r"[A-Z0-9]+-\d+"
 matches = re.findall(jira_ticket_pattern, issue_id)
 print(matches)
 
