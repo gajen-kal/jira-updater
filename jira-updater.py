@@ -13,6 +13,7 @@ pr_url = os.environ.get('PULL_REQUEST_URL')
 
 jira_ticket_pattern = r"[A-Z]+\-\d+"
 matches = re.findall(jira_ticket_pattern, issue_id)
+print(matches)
 
 for word in matches:
     url = jira_url+"/rest/api/3/issue/"+word+"/comment"
