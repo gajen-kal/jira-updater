@@ -4,6 +4,7 @@ import json
 import os
 import re
 import json
+import subprocess
 
 # Get the value of an environment variable
 issue_id = os.environ.get('ISSUE')
@@ -15,33 +16,47 @@ pr_branch = os.environ.get('PR_BRANCH')
 git_token = os.environ.get('GIT_TOKEN')
 pr_number = os.environ.get('PR_NUMBER')
 repo_name = os.environ.get('REPO_NAME')
+target_branch = os.environ.get('TARGET_BRANCH')
+# url = "https://api.github.com/repos/"+repo_name+"/pulls/"+pr_number
+# headers = {
+#     "Accept": "application/vnd.github+json",
+#     "Authorization": "Bearer "+git_token,
+#     "X-GitHub-Api-Version": "2022-11-28"
+# }
 
-url = "https://api.github.com/repos/"+repo_name+"/pulls/"+pr_number
-headers = {
-    "Accept": "application/vnd.github+json",
-    "Authorization": "Bearer "+git_token,
-    "X-GitHub-Api-Version": "2022-11-28"
-}
+# response = requests.get(url, headers=headers)
 
-response = requests.get(url, headers=headers)
+# if response.status_code == 200:
+#     # Parse the response to get the SHA of the head commit
+#     data = json.loads(response.text)
+#     sha = data["head"]["sha"]
+#     print(sha)
+#     # Make another request to the API to get the commits
+#     url = f"https://api.github.com/repos/{repo_name}/commits?sha={sha}"
+#     response = requests.get(url, headers=headers)
 
-if response.status_code == 200:
-    # Parse the response to get the SHA of the head commit
-    data = json.loads(response.text)
-    sha = data["head"]["sha"]
-    print(sha)
-    # Make another request to the API to get the commits
-    url = f"https://api.github.com/repos/{repo_name}/commits?sha={sha}"
-    response = requests.get(url, headers=headers)
+#     # Parse the response to get the commit messages
+#     data = json.loads(response.text)
+#     for commit in data:
+#         message = commit["commit"]["message"]
+#         print(message)
+# else:
+#     print(f"Error {response.status_code}: {response.text}")
 
-    # Parse the response to get the commit messages
-    data = json.loads(response.text)
-    for commit in data:
-        message = commit["commit"]["message"]
-        print(message)
-else:
-    print(f"Error {response.status_code}: {response.text}")
+# Run the git log command and capture its output
+pr_output = subprocess.check_output(["git", "log", "--pretty=format:%s", pr_branch])
 
+# Decode the output as a string
+pr_output_string = output.decode("utf-8")
+
+for message in pr_output_string.split("\n"):
+    print("pr mes "+message)
+    
+# Run the git log command and capture its output
+target_output = subprocess.check_output(["git", "log", "--pretty=format:%s", target_branch])
+
+# Decode the output as a string
+target_output_string = output.decode("utf-8")
 
 jira_ticket_pattern = r"[A-Z0-9]+-\d+"
 matches = re.findall(jira_ticket_pattern, issue_id)
