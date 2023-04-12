@@ -61,14 +61,14 @@ for word in matches:
           {
             "content": [
               {
-                "text": f"Here's a link: {pr_url}",
+                "text": pr_url",
                 "type": "text",
                 "marks": [
                   {
                     "type": "link",
                     "attrs": {
-                      "href": "http://atlassian.com",
-                      "title": "Atlassian"
+                      "href": pr_url,
+                      "title": "Pull Request"
                     }
                    }
                 ]
