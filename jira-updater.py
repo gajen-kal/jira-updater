@@ -2,47 +2,51 @@ import requests
 from requests.auth import HTTPBasicAuth
 import json
 import os
+import re
 
 # Get the value of an environment variable
 issue_id = os.environ.get('ISSUE')
 username = os.environ.get('JIRA_USERNAME')
 token = os.environ.get('JIRA_API_TOKEN')
-words = issue_id.split()
+jira_url = os.environ.get('JIRA_BASE_URL')
+pr_url = os.environ.get('PULL_REQUEST_URL')
 
-for word in words:
-    if word.startswith("#"):
-        url = "https://kaleyra.atlassian.net/rest/api/3/issue/"+word[1:]+"/comment"
-        auth = HTTPBasicAuth(username, token)
+jira_ticket_pattern = r"[A-Z]+\-\d+"
+matches = re.findall(jira_ticket_pattern, issue_id)
 
-        headers = {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        }
+for word in matches:
+    url = jira_url+"/rest/api/3/issue/"+word+"/comment"
+    auth = HTTPBasicAuth(username, token)
 
-        payload = json.dumps( {
-          "body": {
+    headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+
+    payload = json.dumps( {
+      "body": {
+        "content": [
+          {
             "content": [
               {
-                "content": [
-                  {
-                    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget venenatis elit. Duis eu justo eget augue iaculis fermentum. Sed semper quam laoreet nisi egestas at posuere augue semper.",
-                    "type": "text"
-                  }
-                ],
-                "type": "paragraph"
+                "text": pr_url,
+                "type": "text"
               }
             ],
-            "type": "doc",
-            "version": 1
+            "type": "paragraph"
           }
-        } )
+        ],
+        "type": "doc",
+        "version": 1
+      }
+    } )
 
-        response = requests.request(
-           "POST",
-           url,
-           data=payload,
-           headers=headers,
-           auth=auth
-        )
+    response = requests.request(
+       "POST",
+       url,
+       data=payload,
+       headers=headers,
+       auth=auth
+    )
 
-        print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+    print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
