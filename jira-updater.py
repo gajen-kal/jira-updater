@@ -14,8 +14,9 @@ pr_url = os.environ.get('PULL_REQUEST_URL')
 pr_branch = os.environ.get('PR_BRANCH')
 git_token = os.environ.get('GIT_TOKEN')
 pr_number = os.environ.get('PR_NUMBER')
+repo_name = os.environ.get('REPO_NAME')
 
-url = "https://api.github.com/repos/kaleyra/rbac/pulls/"+pr_number
+url = "https://api.github.com/repos/"+repo_name+"/pulls/"+pr_number
 headers = {
     "Accept": "application/vnd.github+json",
     "Authorization": "Bearer "+git_token,
@@ -28,8 +29,9 @@ if response.status_code == 200:
     # Parse the response to get the SHA of the head commit
     data = json.loads(response.text)
     sha = data["head"]["sha"]
+    print(sha)
     # Make another request to the API to get the commits
-    url = f"https://api.github.com/repos/kaleyra/rbac/commits?sha={sha}"
+    url = f"https://api.github.com/repos/{repo_name}/commits?sha={sha}"
     response = requests.get(url, headers=headers)
 
     # Parse the response to get the commit messages
