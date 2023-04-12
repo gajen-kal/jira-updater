@@ -61,8 +61,16 @@ for word in matches:
           {
             "content": [
               {
-                "text": pr_url,
-                 "type": "text"
+                "text": f"Here's a link: {pr_url}",
+                "type": "text"
+                'marks': [
+                            {
+                                'type': 'link',
+                                'attrs': {
+                                    'href': pr_url
+                                }
+                            }
+                        ]
               }
             ],
             "type": "paragraph"
