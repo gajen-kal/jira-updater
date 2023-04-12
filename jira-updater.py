@@ -62,7 +62,7 @@ for word in matches:
             "content": [
               {
                 "text": f"Here's a link: {pr_url}",
-                "type": "text"
+                "type": "text",
                 "marks": [
                             {
                                 "type": "link",
