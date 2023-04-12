@@ -44,7 +44,7 @@ target_branch = os.environ.get('TARGET_BRANCH')
 #     print(f"Error {response.status_code}: {response.text}")
 
 # Run the git log command and capture its output
-pr_output = subprocess.check_output(["git", "log", "--pretty=format:%s", pr_branch])
+pr_output = subprocess.check_output(["git", "log", "--pretty=format:%s", f"origin/{pr_branch}"])
 
 # Decode the output as a string
 pr_output_string = output.decode("utf-8")
@@ -53,11 +53,14 @@ for message in pr_output_string.split("\n"):
     print("pr mes "+message)
     
 # Run the git log command and capture its output
-target_output = subprocess.check_output(["git", "log", "--pretty=format:%s", target_branch])
+target_output = subprocess.check_output(["git", "log", "--pretty=format:%s", f"origin/{target_branch}"])
 
 # Decode the output as a string
 target_output_string = output.decode("utf-8")
 
+for message in pr_output_string.split("\n"):
+    print("target mes "+message)
+    
 jira_ticket_pattern = r"[A-Z0-9]+-\d+"
 matches = re.findall(jira_ticket_pattern, issue_id)
 
