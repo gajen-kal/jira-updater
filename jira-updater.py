@@ -16,6 +16,7 @@ matches = re.findall(jira_ticket_pattern, issue_id)
 
 for word in matches:
     url = jira_url+"/rest/api/3/issue/"+word+"/comment"
+    print(url)
     auth = HTTPBasicAuth(username, token)
 
     headers = {
