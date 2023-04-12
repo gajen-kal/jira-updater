@@ -3,7 +3,7 @@ from requests.auth import HTTPBasicAuth
 import json
 import os
 import re
-import subprocess
+import json
 
 # Get the value of an environment variable
 issue_id = os.environ.get('ISSUE')
@@ -12,9 +12,10 @@ token = os.environ.get('JIRA_API_TOKEN')
 jira_url = os.environ.get('JIRA_BASE_URL')
 pr_url = os.environ.get('PULL_REQUEST_URL')
 pr_branch = os.environ.get('PR_BRANCH')
-git_token = os.environ.get('GIT_TOKEN')
+git_token = os.environ.get('PR_TOKEN')
+pr_number = os.environ.get('PR_NUMBER')
 
-url = "https://api.github.com/repos/kaleyra/rbac/pulls/171"
+url = "https://api.github.com/repos/kaleyra/rbac/pulls/"+pr_number
 headers = {
     "Accept": "application/vnd.github+json",
     "Authorization": "Bearer "+git_token,
@@ -24,8 +25,18 @@ headers = {
 response = requests.get(url, headers=headers)
 
 if response.status_code == 200:
-    data = response.json()
-    # Do something with the data
+    # Parse the response to get the SHA of the head commit
+    data = json.loads(response.text)
+    sha = data["head"]["sha"]
+    # Make another request to the API to get the commits
+    url = f"https://api.github.com/repos/kaleyra/rbac/commits?sha={sha}"
+    response = requests.get(url, headers=headers)
+
+    # Parse the response to get the commit messages
+    data = json.loads(response.text)
+    for commit in data:
+        message = commit["commit"]["message"]
+        print(message)
 else:
     print(f"Error {response.status_code}: {response.text}")
 
