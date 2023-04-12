@@ -61,8 +61,8 @@ for word in matches:
           {
             "content": [
               {
-                "url": pr_url,
-                 "type": "url"
+                "text": pr_url,
+                 "type": "text"
               }
             ],
             "type": "paragraph"
