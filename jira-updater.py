@@ -12,16 +12,23 @@ token = os.environ.get('JIRA_API_TOKEN')
 jira_url = os.environ.get('JIRA_BASE_URL')
 pr_url = os.environ.get('PULL_REQUEST_URL')
 pr_branch = os.environ.get('PR_BRANCH')
+git_token = os.environ.get('GIT_TOKEN')
 
-# Define the Git command to execute
-git_command = ['git', 'log', '--pretty=format:%s', 'HEAD', f'$(git merge-base HEAD "{pr_branch}")']
+url = "https://api.github.com/repos/kaleyra/rbac/pulls/171"
+headers = {
+    "Accept": "application/vnd.github+json",
+    "Authorization": "Bearer "+git_token,
+    "X-GitHub-Api-Version": "2022-11-28"
+}
 
-# Execute the Git command and capture the output
-output = subprocess.check_output(git_command).decode('utf-8')
+response = requests.get(url, headers=headers)
 
-# Display the output
-print(output)
-print("The variable, output is of type:", type(output))
+if response.status_code == 200:
+    data = response.json()
+    # Do something with the data
+else:
+    print(f"Error {response.status_code}: {response.text}")
+
 
 jira_ticket_pattern = r"[A-Z0-9]+-\d+"
 matches = re.findall(jira_ticket_pattern, issue_id)
