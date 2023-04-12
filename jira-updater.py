@@ -60,10 +60,11 @@ target_output_string = target_output.decode("utf-8")
 target_commit_mssg=target_output_string.split("\n")
 
 res = [item for item in pr_commit_mssg if item not in target_commit_mssg]
+res.append(issue_id)
 print(res)
     
 jira_ticket_pattern = r"[A-Z0-9]+-\d+"
-matches = re.findall(jira_ticket_pattern, issue_id)
+matches = re.findall(jira_ticket_pattern, res)
 
 for word in matches:
     url = jira_url+"/rest/api/3/issue/"+word+"/comment"
