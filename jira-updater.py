@@ -61,7 +61,7 @@ for word in matches:
           {
             "content": [
               {
-                "text": pr_url",
+                "text": pr_url,
                 "type": "text",
                 "marks": [
                   {
