@@ -31,7 +31,7 @@ for word in matches:
           {
             "content": [
               {
-                "text": pr_url,
+                "text": "pull request url : "+pr_url,
                 "type": "text"
               }
             ],
