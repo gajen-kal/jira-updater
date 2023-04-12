@@ -64,13 +64,14 @@ for word in matches:
                 "text": f"Here's a link: {pr_url}",
                 "type": "text",
                 "marks": [
-                            {
-                                "type": "link",
-                                "attrs": {
-                                    "href": pr_url
-                                }
-                            }
-                        ]
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "http://atlassian.com",
+                      "title": "Atlassian"
+                    }
+                   }
+                ]
               }
             ],
             "type": "paragraph"
