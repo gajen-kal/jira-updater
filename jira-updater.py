@@ -66,6 +66,8 @@ print(res)
 jira_ticket_pattern = r"[A-Z0-9]+-\d+"
 matches = re.findall(jira_ticket_pattern, res)
 
+print(matches)
+
 for word in matches:
     url = jira_url+"/rest/api/3/issue/"+word+"/comment"
     auth = HTTPBasicAuth(username, token)
