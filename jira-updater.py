@@ -14,7 +14,7 @@ pr_url = os.environ.get('PULL_REQUEST_URL')
 pr_branch = os.environ.get('PR_BRANCH')
 
 # Define the Git command to execute
-git_command = ['git', 'log', '--pretty=format:%s', f'origin/{pr_branch}']
+git_command = [git', 'log', '--pretty=format:%s', 'HEAD', f'$(git merge-base HEAD "{pr_branch}")']
 
 # Execute the Git command and capture the output
 output = subprocess.check_output(git_command).decode('utf-8')
