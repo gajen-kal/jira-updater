@@ -47,7 +47,7 @@ target_branch = os.environ.get('TARGET_BRANCH')
 pr_output = subprocess.check_output(["git", "log", "--pretty=format:%s", f"origin/{pr_branch}"])
 
 # Decode the output as a string
-pr_output_string = output.decode("utf-8")
+pr_output_string = pr_output.decode("utf-8")
 
 for message in pr_output_string.split("\n"):
     print("pr mes "+message)
@@ -56,7 +56,7 @@ for message in pr_output_string.split("\n"):
 target_output = subprocess.check_output(["git", "log", "--pretty=format:%s", f"origin/{target_branch}"])
 
 # Decode the output as a string
-target_output_string = output.decode("utf-8")
+target_output_string = target_output.decode("utf-8")
 
 for message in pr_output_string.split("\n"):
     print("target mes "+message)
