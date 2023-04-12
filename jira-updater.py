@@ -12,7 +12,7 @@ token = os.environ.get('JIRA_API_TOKEN')
 jira_url = os.environ.get('JIRA_BASE_URL')
 pr_url = os.environ.get('PULL_REQUEST_URL')
 pr_branch = os.environ.get('PR_BRANCH')
-git_token = os.environ.get('PR_TOKEN')
+git_token = os.environ.get('GIT_TOKEN')
 pr_number = os.environ.get('PR_NUMBER')
 
 url = "https://api.github.com/repos/kaleyra/rbac/pulls/"+pr_number
