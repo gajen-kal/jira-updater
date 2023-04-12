@@ -63,6 +63,14 @@ for word in matches:
               {
                 "text": f"Here's a link: {pr_url}",
                 "type": "text"
+                "marks": [
+                            {
+                                "type": "link",
+                                "attrs": {
+                                    "href": comment_url
+                                }
+                            }
+                        ]
               }
             ],
             "type": "paragraph"
