@@ -49,6 +49,10 @@ pr_output = subprocess.check_output(["git", "log", "--pretty=format:%s", f"origi
 # Decode the output as a string
 pr_output_string = pr_output.decode("utf-8")
 
+pr_commit_mssg=pr_output_string.split("\n")
+
+print("type of pr_commit_mssg" +type(pr_commit_mssg))
+
 for message in pr_output_string.split("\n"):
     print("pr mes "+message)
     
@@ -58,7 +62,11 @@ target_output = subprocess.check_output(["git", "log", "--pretty=format:%s", f"o
 # Decode the output as a string
 target_output_string = target_output.decode("utf-8")
 
-for message in pr_output_string.split("\n"):
+target_commit_mssg=target_output_string.split("\n")
+
+print("type of target_commit_mssg" +type(target_commit_mssg))
+
+for message in target_output_string.split("\n"):
     print("target mes "+message)
     
 jira_ticket_pattern = r"[A-Z0-9]+-\d+"
