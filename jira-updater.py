@@ -67,7 +67,7 @@ for word in matches:
                             {
                                 "type": "link",
                                 "attrs": {
-                                    "href": comment_url
+                                    "href": pr_url
                                 }
                             }
                         ]
