@@ -59,7 +59,7 @@ target_output_string = target_output.decode("utf-8")
 
 target_commit_mssg=target_output_string.split("\n")
 
-res = list(set(pr_commit_mssg) - set(target_commit_mssg))
+res = [item for item in pr_commit_mssg if item not in target_commit_mssg]
 print(res)
     
 jira_ticket_pattern = r"[A-Z0-9]+-\d+"
