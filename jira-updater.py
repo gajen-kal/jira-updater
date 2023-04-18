@@ -12,6 +12,7 @@ username = os.environ.get('JIRA_USERNAME')
 token = os.environ.get('JIRA_API_TOKEN')
 jira_url = os.environ.get('JIRA_BASE_URL')
 pr_url = os.environ.get('PULL_REQUEST_URL')
+pr_title = os.environ.get('PR_MESSAGE')
 pr_branch = os.environ.get('PR_BRANCH')
 git_token = os.environ.get('GIT_TOKEN')
 pr_number = os.environ.get('PR_NUMBER')
@@ -92,6 +93,8 @@ for word in issue_list:
           {
             "content": [
               {
+                "text": pr_title,
+                "type": "text" 
                 "text": pr_url,
                 "type": "text",
                 "marks": [
