@@ -94,7 +94,7 @@ for word in issue_list:
             "content": [
               {
                 "text": pr_title,
-                "type": "text" 
+                "type": "text",
                 "text": pr_url,
                 "type": "text",
                 "marks": [
