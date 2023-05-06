@@ -23,6 +23,7 @@ commit_message = comm_message.lstrip()
 trigger_event = os.environ.get('TRIGGER_EVENT')
 comm_id = os.environ.get('COMMIT_ID')
 commit_id = comm_id.lstrip()
+comm_url = os.environ.get('COMMIT_URL')
 print(f"THE TRIGGER EVENT IS: {trigger_event}")
 print(trigger_event)
 print(commit_id)
@@ -77,7 +78,7 @@ if trigger_event == "pull_request":
     url = pr_url
 else:
     issue_string = commit_message
-    url = "https://github.com/kaleyra/billing/commit/"+commit_id
+    url = comm_url+"/commit/"+commit_id
 print(issue_string)
 
 # Regular expression for jira ticket
