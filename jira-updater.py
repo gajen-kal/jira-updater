@@ -69,7 +69,7 @@ res = [item for item in pr_commit_mssg if item not in target_commit_mssg]
 res.append(issue_id)
 
 # Convert the list to a string with comma as separator
-if trigger_event == pull_request
+if trigger_event == "pull_request":
     issue_string = ', '.join(res)
 else:
     issue_string = commit_message
