@@ -75,10 +75,10 @@ if trigger_event == "pull_request":
 
     # Convert the list to a string with comma as separator
     issue_string = ', '.join(res)
-    url = pr_url
+    action_url = pr_url
 else:
     issue_string = commit_message
-    url = comm_url+"/commit/"+commit_id
+    action_url = comm_url+"/commit/"+commit_id
 print(issue_string)
 
 # Regular expression for jira ticket
@@ -110,13 +110,13 @@ for word in issue_list:
               {
                 "text": pr_title,
                 "type": "text",
-                "text": url,
+                "text": action_url,
                 "type": "text",
                 "marks": [
                   {
                     "type": "link",
                     "attrs": {
-                      "href": url,
+                      "href": action_url,
                       "title": "Pull Request"
                     }
                    }
