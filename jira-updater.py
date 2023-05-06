@@ -49,31 +49,32 @@ print(commit_id)
 #         print(message)
 # else:
 #     print(f"Error {response.status_code}: {response.text}")
-
-# Run the git log command and capture its output
-pr_output = subprocess.check_output(["git", "log", "--pretty=format:%s", f"origin/{pr_branch}"])
-
-# Decode the output as a string
-pr_output_string = pr_output.decode("utf-8")
-
-pr_commit_mssg=pr_output_string.split("\n")
-
-# Run the git log command and capture its output
-target_output = subprocess.check_output(["git", "log", "--pretty=format:%s", f"origin/{target_branch}"])
-
-# Decode the output as a string
-target_output_string = target_output.decode("utf-8")
-
-target_commit_mssg=target_output_string.split("\n")
-
-res = [item for item in pr_commit_mssg if item not in target_commit_mssg]
-res.append(issue_id)
-
-# Convert the list to a string with comma as separator
 if trigger_event == "pull_request":
+    # Run the git log command and capture its output
+    pr_output = subprocess.check_output(["git", "log", "--pretty=format:%s", f"origin/{pr_branch}"])
+
+    # Decode the output as a string
+    pr_output_string = pr_output.decode("utf-8")
+
+    pr_commit_mssg=pr_output_string.split("\n")
+
+    # Run the git log command and capture its output
+    target_output = subprocess.check_output(["git", "log", "--pretty=format:%s", f"origin/{target_branch}"])
+
+    # Decode the output as a string
+    target_output_string = target_output.decode("utf-8")
+
+    target_commit_mssg=target_output_string.split("\n")
+
+    res = [item for item in pr_commit_mssg if item not in target_commit_mssg]
+    res.append(issue_id)
+
+    # Convert the list to a string with comma as separator
     issue_string = ', '.join(res)
+    url = pr_url
 else:
     issue_string = commit_message
+    url = "https://github.com/kaleyra/billing/commit/"+commit_id
 print(issue_string)
 
 # Regular expression for jira ticket
@@ -105,13 +106,13 @@ for word in issue_list:
               {
                 "text": pr_title,
                 "type": "text",
-                "text": pr_url,
+                "text": url,
                 "type": "text",
                 "marks": [
                   {
                     "type": "link",
                     "attrs": {
-                      "href": pr_url,
+                      "href": url,
                       "title": "Pull Request"
                     }
                    }
