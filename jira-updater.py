@@ -20,9 +20,10 @@ repo_name = os.environ.get('REPO_NAME')
 target_branch = os.environ.get('TARGET_BRANCH')
 commit_message = os.environ.get('COMMIT_MESS')
 trigger_event = os.environ.get('TRIGGER_EVENT')
-
+commit_id = os.environ.get('COMMIT_ID')
 print(f"THE TRIGGER EVENT IS: {trigger_event}")
 print(trigger_event)
+print(commit_id)
 # url = "https://api.github.com/repos/"+repo_name+"/pulls/"+pr_number
 # headers = {
 #     "Accept": "application/vnd.github+json",
