@@ -18,6 +18,11 @@ git_token = os.environ.get('GIT_TOKEN')
 pr_number = os.environ.get('PR_NUMBER')
 repo_name = os.environ.get('REPO_NAME')
 target_branch = os.environ.get('TARGET_BRANCH')
+commit_message = os.environ.get('COMMIT_MESS')
+trigger_event = os.environ.get('TRIGGER_EVENT')
+
+print(f"THE TRIGGER EVENT IS: {trigger_event}")
+print(trigger_event)
 # url = "https://api.github.com/repos/"+repo_name+"/pulls/"+pr_number
 # headers = {
 #     "Accept": "application/vnd.github+json",
@@ -64,7 +69,11 @@ res = [item for item in pr_commit_mssg if item not in target_commit_mssg]
 res.append(issue_id)
 
 # Convert the list to a string with comma as separator
-issue_string = ', '.join(res)
+if trigger_event == "pull_request"
+    issue_string = ', '.join(res)
+else:
+    issue_string = commit_message
+print(issue_string)
 
 # Regular expression for jira ticket
 jira_ticket_pattern = r"[A-Z0-9]+-\d+"
