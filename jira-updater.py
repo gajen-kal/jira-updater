@@ -24,6 +24,7 @@ commit_id = os.environ.get('COMMIT_ID')
 print(f"THE TRIGGER EVENT IS: {trigger_event}")
 print(trigger_event)
 print(commit_id)
+print(commit_message)
 # url = "https://api.github.com/repos/"+repo_name+"/pulls/"+pr_number
 # headers = {
 #     "Accept": "application/vnd.github+json",
