@@ -19,7 +19,8 @@ pr_number = os.environ.get('PR_NUMBER')
 repo_name = os.environ.get('REPO_NAME')
 target_branch = os.environ.get('TARGET_BRANCH')
 comm_message = os.environ.get('COMMIT_MESS')
-commit_message = comm_message.lstrip()
+if comm_message is not None:
+    commit_message = comm_message.lstrip()
 trigger_event = os.environ.get('TRIGGER_EVENT')
 comm_id = os.environ.get('COMMIT_ID')
 if comm_id is not None:
